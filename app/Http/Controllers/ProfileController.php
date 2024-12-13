@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+
+use Illuminate\Support\Facades\Storage;
+
 
 class ProfileController extends Controller
 {
@@ -27,17 +32,39 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+         
+        $validated = $request->validate([
+            'email' => 'nullable',
+            'name' => 'nullable',
+            'bio' => 'nullable',
+        ]); 
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+       $user =User::find($request->userID);
+       if($validated['email'] != null){
+        $user-> update([
+            'email' => $validated['email']
+       ]);
+       }
+       if($validated['name'] != null){
+        $user-> update([
+            'name' => $validated['name']
+       ]);
+       }
+    
+       if($validated['bio'] != null){
+        $user-> update([
+            'bio' => $validated['bio']
+       ]);
+    }
+}
+
+    public function uploadPFP(Request $request){
+        if($request->hasFile('profile_picture')){
+            $link = Storage::disk('public')->put('photos', $request->file('profile_picture'));
+            $request->user()->update(['pfpPath' => $link]);http://127.0.0.1:8000/5fc4f4d4-e175-4a4c-8b91-313d8b811a89
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit');
     }
 
     /**
