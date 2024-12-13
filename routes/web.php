@@ -16,7 +16,7 @@ use App\Http\Controllers\CommentController;
 
 
 Route::get('/', function () {
-    return Inertia::render('Home', [
+    return Inertia::render('Index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'allPosts' => Post::all(),
@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return Inertia::render('Home', [
+    return Inertia::render('Index', [
         'allPosts' => Post::all()->sortBy('date'),
     ]);
 })->middleware(['auth', 'verified'])->name('home');
