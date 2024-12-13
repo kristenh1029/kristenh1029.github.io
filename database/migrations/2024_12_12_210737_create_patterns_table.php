@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->integer('author');
-            $table->string('description');
+            $table->text('description');
             $table->string('coverimage')->nullable();
             $table->string('pdf')->nullable();
             $table->string('datePosted');
