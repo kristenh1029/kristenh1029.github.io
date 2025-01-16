@@ -129,13 +129,7 @@ class PostController extends Controller
     public function addDislike(Request $request)
     {
         $post = Post::find($request->postID);
-        $likes = $post->likes;
-        $dislikes = $post->dislikes;
-
-        if ($request->removelike == true) {
-            $likes = $likes - 1;
-        }
-
+       
         if (DB::table('postlikesdislikes')->where('postID', '=', $request->postID)->exists() == false) {
             $postliked = PostLikesDislikes::create([
                 'postID' => $request->postID,
@@ -150,10 +144,10 @@ class PostController extends Controller
                 'liked' => false,
             ]);
         }
-        $post->update([
-            'likes' => $likes,
-            'dislikes' => $dislikes + 1
-        ]);
+        $post->increment('dislikes');
+        if($request->removelike == true){
+        $post->decrement('likes');
+        }
     }
 
     public function adjustLikes(Request $request)

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PatternController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -21,11 +20,11 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'allPosts' => Post::all(),
     ]);
-});
+})->name('homePage');
 
 Route::get('/home', function () {
     return Inertia::render('Index', [
-        'allPosts' => Post::all()->sortBy('date'),
+        'allPosts' => Post::all(),
     ]);
 })->middleware(['auth', 'verified'])->name('home');
 Route::get('/patterns', function(){
@@ -77,8 +76,7 @@ Route::post('/api/updatePost', [PostController::class, 'update'])->middleware(['
 
 Route::post('/editProfile',  [ProfileController::class, 'update'])->middleware(['auth','verified'])->name('editProfile');
 Route::post('/editcomment', [CommentController::class, 'update'])->middleware(['auth','verified'])->name('editcomment');
-// Route::post('/editpost', [PostController::class, 'update'])->middleware(['auth', 'verified'])->name('editpost');
-Route::post('/adjustLikes', [PostController::class, 'adjustLikes'])->name('adjustLikes');
+ Route::post('/adjustLikes', [PostController::class, 'adjustLikes'])->name('adjustLikes');
 Route::post('/adjustCommentLikes', [CommentController::class, 'adjustLikes'])->name('adjustCommentLikes');
 Route::post('/CreatePattern', [PatternController::class, 'store'])->middleware(['auth', 'verified'])->name('createpattern');
 

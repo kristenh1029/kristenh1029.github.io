@@ -1,5 +1,5 @@
 <script setup>
-import Comment from '../Comments/Comment.vue';
+import Comment from "../Comments/Comment.vue";
 const props = defineProps({
     comments: {
         type: Object,
@@ -10,13 +10,12 @@ const props = defineProps({
         required: true,
     },
 });
-
 </script>
 <template>
-<div v-if="open == true">
-    <div v-if="comments.length == 0"> No Comment History</div>
-    <div v-for="comment in comments"> <Comment
-        :comment="comment"></Comment></div>
-     
-</div>
+    <div v-if="open == true">
+        <div v-if="comments.length == 0">No Comment History</div>
+        <div v-for="comment in comments">
+            <Comment :comment="comment"></Comment>
+        </div>
+    </div>
 </template>

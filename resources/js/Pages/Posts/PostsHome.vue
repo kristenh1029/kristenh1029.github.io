@@ -24,7 +24,16 @@ function filteredList() {
 <template>
     <div>
         <div class="text-md  mx-16">
-            <div v-if="!$page.props.auth.user">Login to create a new post!</div>
+            <div v-if="!$page.props.auth.user" class="flex justify-between">
+                <div> Login to create a new post!</div>
+                <input
+                    type="text"
+                    v-model="input"
+                    placeholder="Search posts..."
+                    class="rounded-lg w-96"
+                />
+
+            </div>
             <div v-else class="flex justify-between">
                 <PrimaryButton @click="togglePostForm" v-if="!PostFormOpened">
                     New Post

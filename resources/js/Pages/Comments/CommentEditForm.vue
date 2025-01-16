@@ -7,12 +7,12 @@ import InputError from "@/Components/InputError.vue";
 const props = defineProps({
     CommentEditFormOpen: {
         type: Boolean,
-       required: true
+        required: true,
     },
     comment: {
         type: Array,
-       required: true
-    }
+        required: true,
+    },
 });
 
 const emit = defineEmits(["closecommenteditform"]);
@@ -47,12 +47,10 @@ const postComment = () => {
                     autocomplete="comment"
                 />
 
-                <InputError class="mt-2" :message="form.errors.comment" />   
+                <InputError class="mt-2" :message="form.errors.comment" />
             </div>
-
         </form>
         <button @click="postComment" class="p-1">Comment</button>
         <button @click="closeForm" class="p-1">Close</button>
     </div>
 </template>
-

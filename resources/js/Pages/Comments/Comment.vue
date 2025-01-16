@@ -8,10 +8,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
-    ReplyName:{
+    ReplyName: {
         type: String,
-        required: false
-    }
+        required: false,
+    },
 });
 
 const ViewReplies = ref(false);
@@ -119,7 +119,6 @@ function submit() {
 }
 </script>
 
-
 <template>
     <div class="flex justify-center">
         <div
@@ -143,14 +142,15 @@ function submit() {
                         >
                             {{ comment.author_details.name }}
                         </p>
-                       
                     </div>
                     <p class="text-gray-400 text-xs">
                         {{ comment.date_formatted }}
                     </p>
                 </div>
             </div>
-            <p v-if="comment.replyID > 0" class="text-indigo-500"> @{{ ReplyName }}</p>
+            <p v-if="comment.replyID > 0" class="text-indigo-500">
+                @{{ ReplyName }}
+            </p>
             <p class="-mt-4 text-gray-500 break-words">{{ comment.comment }}</p>
 
             <div class="flex justify-start">
@@ -244,9 +244,11 @@ function submit() {
                     <span>{{ amtDislikes }}</span>
                 </button>
 
-                <button class="mx-1 px-1 py-1 text-[12px] rounded"
-                @click="toggleCommentForm" v-if="!CommentFormOpened"
-                :disabled="!$page.props.auth.user"
+                <button
+                    class="mx-1 px-1 py-1 text-[12px] rounded"
+                    @click="toggleCommentForm"
+                    v-if="!CommentFormOpened"
+                    :disabled="!$page.props.auth.user"
                 >
                     Reply
                 </button>
@@ -273,19 +275,22 @@ function submit() {
                 :CommentEditFormOpen="CommentEditFormOpened"
                 @closecommenteditform="toggleCommentEditForm"
             ></CommentEditForm>
-        </div>
-        <CommentForm
+            <CommentForm
             :commentFormOpen="CommentFormOpened"
             @closeCommentForm="toggleCommentForm"
             :postID="comment.postID"
             :replyID="comment.id"
         ></CommentForm>
-        
+        </div>
+       
     </div>
-    <div class ="ml-12">
-    <div v-for="comment in comment.replies" >
-            <Comment :comment="comment"
-            :ReplyName="comment.author_details.name"> </Comment>
+    <div class="ml-12">
+        <div v-for="reply in comment.replies">
+            <Comment
+                :comment="reply"
+                :ReplyName="comment.author_details.name"
+            >
+            </Comment>
         </div>
     </div>
 </template>

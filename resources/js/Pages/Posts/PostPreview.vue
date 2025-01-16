@@ -13,7 +13,7 @@ const props = defineProps({
 
 
 <template>
-<div class='flex items-center justify-center p-5'>  <div class="rounded-xl border  p-5 shadow-md w-9/12 bg-white">
+<div class='flex items-center justify-center p-5 font-mono'>  <div class="rounded-xl border  p-5 shadow-md w-9/12 bg-white">
     <div class="flex w-full items-center justify-between border-b pb-3">
       <div class="flex items-center space-x-3">
         <img class="h-8 w-8 rounded-full bg-slate-400" :src=" Post.author_details.profile_picture +'/'+Post.author_details.pfpPath"></img>
@@ -31,7 +31,7 @@ const props = defineProps({
     </div>
 
     <div>
-        <Link :href="route('viewPost', {post: Post.id})"> Read more</Link>          
+        <Link :href="route('viewPost', {post: Post.id})" class="font-mono"> Read more</Link>          
 
       <div class="flex items-center justify-between text-slate-500">
         <div class="flex space-x-4 md:space-x-8">

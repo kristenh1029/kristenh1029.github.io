@@ -1,5 +1,5 @@
 <script setup>
-import PostPreview from '../Posts/PostPreview.vue';
+import PostPreview from "../Posts/PostPreview.vue";
 const props = defineProps({
     posts: {
         type: Object,
@@ -12,12 +12,11 @@ const props = defineProps({
 });
 </script>
 <template>
-<div v-if="open == true">
-    <div v-if="posts.length == 0"> No Post History</div>
+    <div v-if="open == true">
+        <div v-if="posts.length == 0">No Post History</div>
 
-    <div v-for="post in posts">
-        <div> <PostPreview :Post="post"></PostPreview></div>
-
+        <div v-for="post in posts">
+            <div><PostPreview :Post="post"></PostPreview></div>
+        </div>
     </div>
-</div>
 </template>

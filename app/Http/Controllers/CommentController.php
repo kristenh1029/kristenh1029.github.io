@@ -9,8 +9,6 @@ use App\Http\Requests\PostCommentRequest;
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-
-//use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection;
 
 class CommentController extends Controller
@@ -31,7 +29,6 @@ class CommentController extends Controller
             'likes' => 0,
             'dislikes' => 0
         ]);
-        return redirect(to: route('viewPost', ['post' => $validated['postID']]));
     }
 
     public function update(Request $request)
@@ -89,6 +86,7 @@ class CommentController extends Controller
 
         if (DB::table('commentlikesdislikes')->where('commentID', '=', $request->commentID)->exists() == false) {
             $commentliked = CommentLikesDislikes::create([
+                'commentID' => $request->commentID,
                 'postID' => $request->postID,
                 'userID' => $request->user()->id,
                 'disliked' => false,
